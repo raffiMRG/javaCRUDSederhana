@@ -1,7 +1,10 @@
 package com.tutorial;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -54,7 +57,42 @@ public class Main {
     }
 
     private static void tampilkanData() throws IOException{
-        boolean isTambah = getYesOrNo("Apakah anda ingin menambah data");
+
+        FileReader fileInput;
+        BufferedReader bufferedReader;
+
+        try {
+            fileInput = new FileReader("database.txt");
+            bufferedReader = new BufferedReader(fileInput);
+        } catch (Exception e){
+            System.err.println("database tidak ditemuukan");
+            System.err.println("silahkan tambah data terlebih dahulu");
+            return;
+        }
+
+        String data = bufferedReader.readLine();
+
+
+        System.out.println("\n| No |\tTahun |\tPenlis             |\tPenerbit   |\tJudul Buku   ");
+        System.out.println("----------------------------------------------------------------");
+
+        int nomerData = 0;
+        while(data != null){
+            nomerData++;
+        StringTokenizer stringTokenizer = new StringTokenizer(data,",");
+
+        stringTokenizer.nextToken();
+        System.out.printf("| %2d ",nomerData);
+        System.out.printf("|\t%4s  ",stringTokenizer.nextToken());
+        System.out.printf("|\t%-20s  ",stringTokenizer.nextToken());
+        System.out.printf("|\t%-20s  ",stringTokenizer.nextToken());
+        System.out.printf("|\t%s",stringTokenizer.nextToken());
+        System.out.println();
+
+        data = bufferedReader.readLine();
+        }
+        System.out.println("Akhir Dari Database");
+
     }
 
     private static boolean getYesOrNo(String message) {
