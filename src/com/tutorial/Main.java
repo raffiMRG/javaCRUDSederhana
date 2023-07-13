@@ -1,7 +1,13 @@
 package com.tutorial;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -32,6 +38,7 @@ public class Main {
                 case "2":
                     System.out.println("CARI BUKU");
                     // CARI DATA
+                    cariData();
                     break;
                 case "3":
                     System.out.println("TAMBAH DATA BUKU");
@@ -53,8 +60,104 @@ public class Main {
         }
     }
 
+    private static void cariData() throws IOException{
+        // membaca databasse ada atau tidak
+        try {
+            File file = new File("database.txt");
+        } catch (Exception e){
+            System.err.println("database tidak ditemuukan");
+            System.err.println("silahkan tambah data terlebih dahulu");
+            return;
+        }
+        // ambil keyword dari user
+        Scanner terminalInput = new Scanner(System.in);
+        System.out.print("Masukan kata kunci untuk mencari buku : ");
+        String cariString = terminalInput.nextLine();
+        System.out.println(cariString);
+
+        String[] keyword = cariString.split("\\s");
+
+        // chek keyword di database
+        cekBukuDiatabase(keyword);
+    }
+
+    private static void cekBukuDiatabase(String[] keywords) throws IOException{
+
+        FileReader fileInput = new FileReader("database.txt");
+        BufferedReader bufferInput = new BufferedReader(fileInput);
+
+        String data = bufferInput.readLine();
+        int nomerData = 0;
+        boolean isExsist;
+
+        System.out.println("\n| No |\tTahun |\tPenlis             |\tPenerbit   |\tJudul Buku   ");
+        System.out.println("----------------------------------------------------------------");
+
+        while(data!=null){
+
+            // chek keyword di dalam baris
+            isExsist = true;
+
+            for(String keyword:keywords){
+                isExsist = isExsist && data.toLowerCase().contains(keyword.toLowerCase());
+            }
+
+            // jika keywordnya cocok maka tampilkan
+            if(isExsist){
+                nomerData++;
+                StringTokenizer stringTokenizer = new StringTokenizer(data,",");
+
+                stringTokenizer.nextToken();
+                System.out.printf("| %2d ",nomerData);
+                System.out.printf("|\t%4s  ",stringTokenizer.nextToken());
+                System.out.printf("|\t%-20s  ",stringTokenizer.nextToken());
+                System.out.printf("|\t%-20s  ",stringTokenizer.nextToken());
+                System.out.printf("|\t%s",stringTokenizer.nextToken());
+                System.out.println();
+            }
+
+            data = bufferInput.readLine();
+        }
+
+    }
+
     private static void tampilkanData() throws IOException{
-        boolean isTambah = getYesOrNo("Apakah anda ingin menambah data");
+
+        FileReader fileInput;
+        BufferedReader bufferedReader;
+
+        try {
+            fileInput = new FileReader("database.txt");
+            bufferedReader = new BufferedReader(fileInput);
+        } catch (Exception e){
+            System.err.println("database tidak ditemuukan");
+            System.err.println("silahkan tambah data terlebih dahulu");
+            return;
+        }
+
+        String data = bufferedReader.readLine();
+
+
+        System.out.println("\n| No |\tTahun |\tPenlis             |\tPenerbit   |\tJudul Buku   ");
+        System.out.println("----------------------------------------------------------------");
+
+        int nomerData = 0;
+        while(data != null){
+            nomerData++;
+        StringTokenizer stringTokenizer = new StringTokenizer(data,",");
+
+        stringTokenizer.nextToken();
+        System.out.printf("| %2d ",nomerData);
+        System.out.printf("|\t%4s  ",stringTokenizer.nextToken());
+        System.out.printf("|\t%-20s  ",stringTokenizer.nextToken());
+        System.out.printf("|\t%-20s  ",stringTokenizer.nextToken());
+        System.out.printf("|\t%s",stringTokenizer.nextToken());
+        System.out.println();
+
+        data = bufferedReader.readLine();
+        }
+        System.out.println("Akhir Dari Database");
+
     }
 
     private static boolean getYesOrNo(String message) {
