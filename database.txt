@@ -3,3 +3,9 @@ promoedyAnatatooer_2001_1,2001,Pramoedya Anatatoer,Gramedya,Bumi Manusia
 faqihza_2021_1,2019,faqihza,gramedia,Belajar c++
 faqihza_2021_1,2019,faqihza,gramedia,Belajar java
 faqihza_2021_1,2019,faqihza,gramedia,Belajar python
+faqihza_2021_1,2000,saya,toko saya,buku saya
+mrg_2000_1,2000,mrg,gramedia,coba java
+raffi_1212_1,1212,raffi,raffi,belajar
+raffi_1212_2,1212,raffi,raffi,belajar menulis
+raffi_1212_3,1212,raffi,raffi,belajar berlari
+raffi_1212_4,1212,raffi,raffi,belajar berjalan
