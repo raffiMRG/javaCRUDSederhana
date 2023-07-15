@@ -42,6 +42,7 @@ public class Main {
                     System.out.println("TAMBAH DATA BUKU");
                     // TAMBAH DATA
                     tambahData();
+                    tampilkanData();
                     break;
                 case "4":
                     System.out.println("UBAH DATA BUKU");
@@ -50,6 +51,7 @@ public class Main {
                 case "5":
                     System.out.println("HAPUS DATA BUKU");
                     // HAPUS DATA
+                    deleteData();
                     break;
                 default:
                     System.out.println("\npilihan anda tidak di temukan silahkan masukan angka pilihan 1-5");
@@ -57,6 +59,83 @@ public class Main {
             // getyesorno
             isLanjutkan = getYesOrNo("\nApakah anda ingin melanjutkan");
         }
+    }
+
+    private static void deleteData () throws IOException {
+        // kita ambil databse orifginal
+        File database = new File("database.txt");
+        FileReader fileReader = new FileReader(database);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        // kita buat databse sementara
+        File tmpDB = new File("tempDB.txt");
+        FileWriter fileWriter = new FileWriter(tmpDB);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+        // tampilkan data
+        System.out.println("List buku");
+        tampilkanData();
+
+        // kita ambil user input untuk mendelete data
+        Scanner terminalInput = new Scanner(System.in);
+        System.out.print("\nMasukan nomor buku yang akan di hapus : ");
+        int deleteNum = terminalInput.nextInt();
+
+        // looping untuk membaca tiap data baris dan skip data yang ingin di delete
+
+        boolean isFound = false;
+        int entryCounts = 0;
+        String data = bufferedReader.readLine();
+
+        while (data != null) {
+            entryCounts++;
+            boolean isDelete = false;
+
+            StringTokenizer st = new StringTokenizer(data, ",");
+
+            // tampilkan data yang ingin di hapus
+            if (deleteNum == entryCounts){
+                System.out.println("data yang ingin anda hapus adalah : ");
+                System.out.println("------------------------------------");
+                System.out.println("Referensi        : " + st.nextToken());
+                System.out.println("tahun            : " + st.nextToken());
+                System.out.println("penulis          : " + st.nextToken());
+                System.out.println("penerbit         : " + st.nextToken());
+                System.out.println("judul            : " + st.nextToken());
+
+                isDelete = getYesOrNo("Apakah anda yakin akan menghapus?");
+                isFound = true;
+            }
+
+            if (isDelete){
+                // skip pindahkan data dari original ke sementara
+                System.out.println("data berhasil dihapus");
+            }else {
+                // kita pindahkan data dari original ke sementara
+                bufferedWriter.write(data);
+                bufferedWriter.newLine();
+            }
+            data = bufferedReader.readLine();
+        }
+
+        if (!isFound){
+            System.err.println("Data tidak ditemukan!!");
+        }
+
+        // menulis data ke file
+        bufferedWriter.flush();
+
+        bufferedReader.close();
+        fileReader.close();
+        bufferedWriter.close();
+        fileWriter.close();
+
+        // menghapus database
+        database.delete();
+
+        // rename file tmp menjadi database
+        tmpDB.renameTo(database);
+        System.out.println("data dihapus");
     }
 
     private static void tampilkanData() throws IOException{
@@ -70,6 +149,7 @@ public class Main {
         } catch (Exception e){
             System.err.println("database tidak ditemuukan");
             System.err.println("silahkan tambah data terlebih dahulu");
+            tambahData();
             return;
         }
 
@@ -96,6 +176,8 @@ public class Main {
         }
         System.out.println("Akhir Dari Database");
 
+        bufferedReader.close();
+        fileInput.close();
     }
 
     private static void cariData() throws IOException{
@@ -105,6 +187,7 @@ public class Main {
         } catch (Exception e){
             System.err.println("database tidak ditemuukan");
             System.err.println("silahkan tambah data terlebih dahulu");
+            tambahData();
             return;
         }
         // ambil keyword dari user
