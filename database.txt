@@ -1,10 +1,9 @@
 firesabesari_2012_1,2012,Firesa Besari,media kita,jejak langkah
 promoedyAnatatooer_2001_1,2001,Pramoedya Anatatoer,Gramedya,Bumi Manusia
 faqihza_2021_1,2019,faqihza,gramedia,Belajar c++
-faqihza_2021_1,2019,faqihza,gramedia,Belajar java
+ucup_2019_1,2019,ucup,gramedia,Belajar java
 faqihza_2021_1,2019,faqihza,gramedia,Belajar python
 raffi_1212_1,1212,raffi,raffi,belajar
 raffi_1212_2,1212,raffi,raffi,belajar menulis
 raffi_1212_3,1212,raffi,raffi,belajar berlari
 raffi_1212_4,1212,raffi,raffi,belajar berjalan
-saya_2020_1,2020,saya,toko saya,buku saya
