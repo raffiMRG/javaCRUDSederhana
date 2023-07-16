@@ -6,4 +6,5 @@ faqihza_2021_1,2019,faqihza,gramedia,Belajar python
 raffi_1212_1,1212,raffi,raffi,belajar
 raffi_1212_2,1212,raffi,raffi,belajar menulis
 raffi_1212_3,1212,raffi,raffi,belajar berlari
-raffi_1212_4,1212,raffi,raffi,belajar berjalan
+raffi_1212_5,1212,raffi,raffi,raffi judul
+ujang_2021_1,2021,ujang,ujang toko,buku ujang
